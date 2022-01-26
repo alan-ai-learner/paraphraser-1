@@ -18,34 +18,50 @@
 //     // range.setStartAfter(li)
 
 // }
+let data = ["It Will Fetched Text 1", "It Will Fetched Text 2", "It Will Fetched Text 3", "It Will Fetched Text 4", "It Will Fetched Text 5"]
 const selectedArr = { node: '' }
 
 const handleCLick = async () => {
     if (window.getSelection().toString().length > 0) {
-
         const text = window.getSelection().toString().trim()
         const F1selected = window.getSelection()
         // selectedArr.push(F1selected.anchorNode.parentElement.nodeName)
         selectedArr.node = window.getSelection().getRangeAt(0)
         console.log('hello', selectedArr, F1selected.anchorNode.parentElement)
 
-
         const replaceFromSuggestedText = (selected1, text) => {
-            console.log(selected1, 'selected1');
 
-            let li = document.createElement('li');
-            li.textContent = "Services"
-            li.style.background = "blue"
-            li.onclick = (selected) => {
-                // alert("hello")
-                // selected.anchorNode.parentElement.
-                let range = selectedArr.node
-                console.log(selected1, "Selected Text", text, selectedArr, "selectedArr")
-                range.deleteContents();
-                range.insertNode(document.createTextNode("Hello, Newton"));
-            }
+            let pContainer = document.createElement('div');
+            pContainer.id = "pcontainer"
+            pContainer.style.border = "border: 1px solid rgb(230, 232, 238)"
+            pContainer.style.borderRadius = "3px"
+            pContainer.style.width = "360px"
+            pContainer.style.boxShadow = "rgb(63 62 77 / 20%) 0px 2px 14px 0px"
 
-            F1selected.anchorNode.parentElement.appendChild(li)
+            data.forEach((ele => {
+
+                let divEleChild = document.createElement('div');
+                divEleChild.textContent = `${ele}`
+
+                divEleChild.onclick = (selected) => {
+                    console.log("selected", selected.target.value, selected)
+                    let range = selectedArr.node
+                    range.deleteContents();
+                    range.insertNode(document.createTextNode(`${ele}`));
+                }
+
+                divEleChild.onmouseover = () => {
+                    divEleChild.style.background = "#ededed"
+                }
+                divEleChild.onmouseout = () => {
+                    divEleChild.style.background = "white"
+                }
+
+                pContainer.appendChild(divEleChild)
+            }))
+            // pContainer.innerHTML = divEleChild
+
+            F1selected.anchorNode.parentElement.appendChild(pContainer)
             // let range = selected.getRangeAt(0);
             // range.setStartAfter(li)
 
@@ -87,21 +103,16 @@ const handleCLick = async () => {
         // window.getSelection().anchorNode.parentElement.innerText === "jay guru maharaj ji"
 
         // console.log(window.getSelection().anchorNode.parentElement.nodeName, text1, window.getSelection())
-        // let api_url = "https://5086-113-193-79-29.ngrok.io/paraphraser/"
-        // let data = {text: "hello"};
+        // let api_url = "https://7c62-1-23-55-130.ngrok.io/paraphraser/"
         // let res = await fetch(api_url, {
         //     method: "POST",
-        //     mode: 'no-cors',
-        //     cache: 'no-cache',
-        //     credentials: 'same-origin',
         //     headers: {
         //         'Content-Type': 'application/json'
         //     },
         //     body: JSON.stringify({text: "Hi, alankar"})
         // })
-
-
-        // console.log(res)
+        // let orRes = await res.json()
+        // console.log(res, orRes);
         // let _data = {
         //     text: "hi, newton"
         //   }
@@ -125,11 +136,11 @@ const handleCLick = async () => {
 
         // var myHeaders = new Headers();
         // myHeaders.append("Content-Type", "application/json");
-        
+
         // var raw = JSON.stringify({
         //   "text": "Collections let you group related requests, making them easier to access and run."
         // });
-        
+
         // var requestOptions = {
         //   method: 'POST',
         //   headers: myHeaders,
@@ -137,23 +148,27 @@ const handleCLick = async () => {
         // //   mode: 'no-cors',
         //   redirect: 'follow'
         // };
-        
+
         // fetch("https://1e8c-1-23-111-49.ngrok.io/paraphraser/", requestOptions)
         //   .then(response => response.text())
         //   .then(result => console.log(result))
         //   .catch(error => console.log('error'))
-            // .catch(error => console.log('error')
+        // .catch(error => console.log('error')
 
         // let origRes = await res.text()
         // console.log("origRes",  origRes)
 
-        let res = await fetch("https://1e8c-1-23-111-49.ngrok.io/", {
-            method:'GET',
-            mode: "no-cors",
-            redirect: 'follow'
-        })
-        let oriRes = await res.text()
-        console.log(res, oriRes)
+        // let res = await fetch("https://55b0-1-23-111-49.ngrok.io/", {
+        //     method:'GET',
+        //     mode: "no-cors",
+        //     headers: {"Content-type": "application/json; charset=UTF-8",
+        //             "Access-Control-Allow-Origin": "*",
+        //             "Access-Control-Allow-Headers": "*"
+        //     },
+        //     redirect: 'follow'
+        // })
+        // // let oriRes = await res.json()
+        // console.log(res, "it's res")
 
 
     }
