@@ -19,11 +19,12 @@
 
 // }
 let data = []
-const selectedArr = { node: '' }
+const selectedArr = { node: '', text: '' }
 
 const handleCLick = async () => {
     if (window.getSelection().toString().length > 0) {
         const text = window.getSelection().toString().trim()
+        selectedAr.text = text
         const F1selected = window.getSelection()
         // selectedArr.push(F1selected.anchorNode.parentElement.nodeName)
         selectedArr.node = window.getSelection().getRangeAt(0)
@@ -35,7 +36,7 @@ const handleCLick = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({text: "Hi, alankar"})
+            body: JSON.stringify({text: selectedAr.text})
         })
         let orRes = await res.json()
         data = orRes
