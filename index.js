@@ -37,11 +37,25 @@ const handleCLick = async () => {
             pContainer.style.borderRadius = "3px"
             pContainer.style.width = "360px"
             pContainer.style.boxShadow = "rgb(63 62 77 / 20%) 0px 2px 14px 0px"
+            pContainer.style.transition = "height 0.1s ease 0"
+            pContainer.style.height = "150px"
+            pContainer.style.overflowY = "auto"
+            pContainer.style.position = "absolute"
+            pContainer.style.background = "rgb(255 255 255)"
 
             data.forEach((ele => {
 
                 let divEleChild = document.createElement('div');
                 divEleChild.textContent = `${ele}`
+                divEleChild.style.color = "rgb(160, 34, 234)"
+                divEleChild.style.border = "solid 1px #eceef4"
+                divEleChild.style.alignSelf = "center"
+                divEleChild.style.paddingTop = "8px"
+                divEleChild.style.paddingBottom = "8px"
+                divEleChild.style.display = "block"
+                divEleChild.style.flexShrink = "initial"
+                divEleChild.style.userSelect = "none"
+                divEleChild.style.cursor = "pointer"
 
                 divEleChild.onclick = (selected) => {
                     console.log("selected", selected.target.value, selected)
