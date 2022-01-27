@@ -18,7 +18,7 @@
 //     // range.setStartAfter(li)
 
 // }
-let data = ["It Will Fetched Text 1", "It Will Fetched Text 2", "It Will Fetched Text 3", "It Will Fetched Text 4", "It Will Fetched Text 5"]
+let data = []
 const selectedArr = { node: '' }
 
 const handleCLick = async () => {
@@ -28,6 +28,17 @@ const handleCLick = async () => {
         // selectedArr.push(F1selected.anchorNode.parentElement.nodeName)
         selectedArr.node = window.getSelection().getRangeAt(0)
         console.log('hello', selectedArr, F1selected.anchorNode.parentElement)
+        
+        let api_url = "https://7c62-1-23-55-130.ngrok.io/paraphraser/"
+        let res = await fetch(api_url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({text: "Hi, alankar"})
+        })
+        let orRes = await res.json()
+        data = orRes
 
         const replaceFromSuggestedText = (selected1, text) => {
 
@@ -116,16 +127,7 @@ const handleCLick = async () => {
         // document.getSelection().anchorNode.textContent === "hello newton"
         // window.getSelection().anchorNode.parentElement.innerText === "jay guru maharaj ji"
 
-        // console.log(window.getSelection().anchorNode.parentElement.nodeName, text1, window.getSelection())
-        // let api_url = "https://7c62-1-23-55-130.ngrok.io/paraphraser/"
-        // let res = await fetch(api_url, {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({text: "Hi, alankar"})
-        // })
-        // let orRes = await res.json()
+        // console.log(window.getSelection().anchorNode.parentElement.nodeName, text1, window.getSelection()
         // console.log(res, orRes);
         // let _data = {
         //     text: "hi, newton"
