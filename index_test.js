@@ -1,7 +1,7 @@
-
-document.querySelector('body').appendChild(document.createElement("h1"))
-
 const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
+    if (isLoading) {
+        document.getElementById("pcontainer").remove()
+    }
     // var rect = event.target.getBoundingClientRect();
     // var x = event.clientX - rect.left;
     // var y = event.clientY - rect.top;
@@ -59,8 +59,7 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
             divEleChild.setAttribute("class", "pcontainer")
             divEleChild.style.alignSelf = "center"
             divEleChild.style.paddingTop = "8px"
-            divEleChild.
-                divEleChild.style.paddingBottom = "8px"
+            divEleChild.style.paddingBottom = "8px"
             divEleChild.style.display = "block"
             divEleChild.style.flexShrink = "initial"
             divEleChild.style.userSelect = "none"
@@ -123,9 +122,10 @@ const handleCLick = async (event) => {
             const F1selected = window.getSelection()
             // selectedArr.push(F1selected.anchorNode.parentElement.nodeName)
             // console.log('hello', selectedArr, F1selected.anchorNode.parentElement)
-            let isLoading = False
+            let isLoading = false
             replaceFromSuggestedText(F1selected, text, isLoading, event, data)
-            let api_url = "http://localhost:8000/paraphraser/"
+            console.log("Hello, newton")
+            let api_url = " https://76f0-113-193-220-44.ngrok.io/paraphraser/"
             let res = await fetch(api_url, {
                 method: "POST",
                 headers: {
@@ -135,7 +135,9 @@ const handleCLick = async (event) => {
             })
             let orRes = await res.json()
             data = orRes['paraphrases']
-            isLoading = True
+
+            console.log("data", orRes, data)
+            isLoading = true
             replaceFromSuggestedText(F1selected, text, isLoading, event, data)
 
         }
