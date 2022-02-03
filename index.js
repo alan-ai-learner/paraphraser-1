@@ -137,11 +137,13 @@ const handleCLick = async (event) => {
         const text = window.getSelection().toString().trim()
         // console.log("1", event.target.nodeName, event, window.getSelection(), ` vaue: ${event.target.value}, ${text}`)
         selectedArr.node = window.getSelection().getRangeAt(0)
+        window.getSelection().anchorNode.getRootNode()
         console.log(document.getSelection().anchorNode.parentElement.parentElement.id, "id")
-        if (text !== selectedArr.text) {
+        if (text !== selectedArr.text && document.activeElement.isContentEditable === true) {
             // console.log("3");
             selectedArr.text = text
             const F1selected = window.getSelection()
+            console.log("window.getSelection().anchorNode.parentElement.isContentEditable", document.activeElement.isContentEditable, window.getSelection().anchorNode.parentElement.isContentEditable)
             // selectedArr.push(F1selected.anchorNode.parentElement)
             // console.log('hello', selectedArr, F1selected.anchorNode.parentElement)
             let isLoading = false
