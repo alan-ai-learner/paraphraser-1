@@ -96,6 +96,7 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
                     range.deleteContents();
                     range.insertNode(document.createTextNode(`${ele}`));
                     pContainer.remove()
+                    mainEle.remove()
                     // event.target.value = `${ele}`
                     // pContainer.remove()
                 }
@@ -134,13 +135,14 @@ const selectedArr = { node: '', text: '', }
 const handleCLick = async (event) => {
     if (window.getSelection().toString().length > 0) {
         const text = window.getSelection().toString().trim()
-        console.log("1", event.target.nodeName, event, window.getSelection(), ` vaue: ${event.target.value}, ${text}`)
+        // console.log("1", event.target.nodeName, event, window.getSelection(), ` vaue: ${event.target.value}, ${text}`)
         selectedArr.node = window.getSelection().getRangeAt(0)
+        console.log(document.getSelection().anchorNode.parentElement.parentElement.id, "id")
         if (text !== selectedArr.text) {
             // console.log("3");
             selectedArr.text = text
             const F1selected = window.getSelection()
-            // selectedArr.push(F1selected.anchorNode.parentElement.nodeName)
+            // selectedArr.push(F1selected.anchorNode.parentElement)
             // console.log('hello', selectedArr, F1selected.anchorNode.parentElement)
             let isLoading = false
             replaceFromSuggestedText(F1selected, text, isLoading, event, data)
@@ -168,7 +170,7 @@ const handleCLick = async (event) => {
 document.addEventListener('mouseup', handleCLick);
 
 const handleMouseDown = (event) => {
-    console.log("2", event.target.id, event)
+    // console.log("2", event.target.id, event)
     let eleContainer = document.getElementById('maincontainer');
     if (event.target.id !== "pcontainer" && eleContainer !== null && event.target.className !== "pcontainer") {
         eleContainer.remove()
