@@ -1,6 +1,7 @@
 const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
     if (isLoading) {
         document.getElementById("pcontainer").remove()
+        document.getElementById("maincontainer").remove()
     }
     // var rect = event.target.getBoundingClientRect();
     // var x = event.clientX - rect.left;
@@ -10,6 +11,7 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
     let mainEle = document.createElement('div')
     mainEle.style.position = "absolute"
     mainEle.style.top = "300px"
+    mainEle.id = "maincontainer"
     mainEle.style.left = "600px"
     mainEle.style.zIndex = 9999;
     mainEle.style.top = `${event.pageY + 11}px`
@@ -43,11 +45,12 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
     h2.style.paddingBottom = "5px"
     h2.style.lineHeight = 1;
     h2.style.background = "#47ad8c"
+    h2.style.width = "360px"
     h2.style.fontWeight = 400;
     h2.style.margin = '0px'
     h2.style.fontFamily = "cursive"
     h2.style.fontSize = "30px"
-    pContainer.appendChild(h2)
+    // pContainer.appendChild(h2)
 
     if (!isLoading) {
         let loadingEle = document.createElement('div');
@@ -72,6 +75,7 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
             divEleChild.style.alignSelf = "center"
             divEleChild.style.paddingTop = "8px"
             divEleChild.style.paddingBottom = "8px"
+            divEleChild.style.paddingLeft = "15px"
             divEleChild.style.display = "block"
             divEleChild.style.flexShrink = "initial"
             divEleChild.style.userSelect = "none"
@@ -110,6 +114,7 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
 
     }
     let dwElement = document.querySelector(".dw");
+    pararentEle.appendChild(h2)
     pararentEle.appendChild(pContainer)
     mainEle.appendChild(pararentEle)
     // dwElement.appendChild(mainEle)
@@ -140,7 +145,7 @@ const handleCLick = async (event) => {
             let isLoading = false
             replaceFromSuggestedText(F1selected, text, isLoading, event, data)
             console.log("Hello, newton")
-            let api_url = " https://76f0-113-193-220-44.ngrok.io/paraphraser/"
+            let api_url = "https://be0c-1-22-107-104.ngrok.io/paraphraser/"
             let res = await fetch(api_url, {
                 method: "POST",
                 headers: {
@@ -164,7 +169,7 @@ document.addEventListener('mouseup', handleCLick);
 
 const handleMouseDown = (event) => {
     console.log("2", event.target.id, event)
-    let eleContainer = document.getElementById('pcontainer');
+    let eleContainer = document.getElementById('maincontainer');
     if (event.target.id !== "pcontainer" && eleContainer !== null && event.target.className !== "pcontainer") {
         eleContainer.remove()
     }
