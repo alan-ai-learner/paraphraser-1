@@ -1,12 +1,22 @@
-
-document.querySelector('body').appendChild(document.createElement("h1"))
-
-const replaceFromSuggestedText = (selected1, text, isLoading, event) => {
+const replaceFromSuggestedText = (selected1, text, isLoading, event, data) => {
+    if (isLoading) {
+        document.getElementById("pcontainer").remove()
+    }
     // var rect = event.target.getBoundingClientRect();
     // var x = event.clientX - rect.left;
     // var y = event.clientY - rect.top;
 
     // console.log(event.pageY)
+    let mainEle = document.createElement('div')
+    mainEle.style.position = "absolute"
+    mainEle.style.top = "300px"
+    mainEle.style.left = "600px"
+    mainEle.style.zIndex = 9999;
+    mainEle.style.top = `${event.pageY + 11}px`
+    mainEle.style.left = `${event.pageX + 20}px`
+
+    let pararentEle = document.createElement('div');
+    pararentEle.style.position = "absolute"
 
     let pContainer = document.createElement("div")
     pContainer.id = "pcontainer"
@@ -15,6 +25,8 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event) => {
     pContainer.style.borderRadius = "3px"
     // pContainer.style.top = `${event.pageY + 10}px`
     // pContainer.style.left = `${event.pageX}px`
+    // pContainer.style.top = `50px`
+    // pContainer.style.left = `50px`
     pContainer.style.width = "360px"
     pContainer.style.display = "block"
     pContainer.style.boxShadow = "rgb(63 62 77 / 20%) 0px 2px 14px 0px"
@@ -59,7 +71,6 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event) => {
             divEleChild.setAttribute("class", "pcontainer")
             divEleChild.style.alignSelf = "center"
             divEleChild.style.paddingTop = "8px"
-            divEleChild.
             divEleChild.style.paddingBottom = "8px"
             divEleChild.style.display = "block"
             divEleChild.style.flexShrink = "initial"
@@ -98,10 +109,13 @@ const replaceFromSuggestedText = (selected1, text, isLoading, event) => {
         // pContainer.innerHTML = divEleChild
 
     }
-    // document.querySelector('body').appendChild(pContainer)
+    let dwElement = document.querySelector(".dw");
+    pararentEle.appendChild(pContainer)
+    mainEle.appendChild(pararentEle)
+    // dwElement.appendChild(mainEle)
+    document.querySelector('body').appendChild(mainEle)
 
-
-    selected1.anchorNode.parentElement.appendChild(pContainer)
+    // selected1.anchorNode.parentElement.appendChild(pararentEle)
     // let range = selected.getRangeAt(0);
     // range.setStartAfter(li)
 
@@ -123,111 +137,23 @@ const handleCLick = async (event) => {
             const F1selected = window.getSelection()
             // selectedArr.push(F1selected.anchorNode.parentElement.nodeName)
             // console.log('hello', selectedArr, F1selected.anchorNode.parentElement)
-            let isLoading = true
+            let isLoading = false
+            replaceFromSuggestedText(F1selected, text, isLoading, event, data)
+            console.log("Hello, newton")
+            let api_url = " https://76f0-113-193-220-44.ngrok.io/paraphraser/"
+            let res = await fetch(api_url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: selectedArr.text })
+            })
+            let orRes = await res.json()
+            data = orRes['paraphrases']
 
-            replaceFromSuggestedText(F1selected, text, isLoading, event)
-
-            // let range = selected.getRangeAt(0);
-            // selected.getRangeAt(0).setStartBefore()
-            // let range = selected.getRangeAt(0);
-            // let li = document.createElement('li');
-            // li.textContent = "Services"
-            // li.style.background = "blue"
-            // li.onclick = () => {
-            //     // document.getElementsByTagName('')
-            //     alert("hello", selected.toString(), "hello")
-            // }
-            // console.log("document.activeElement", document.activeElement)
-
-            // let range = selected.getRangeAt(0);
-
-            // range.insertNode(li)
-            // replaceFromSuggestedText(selected, text)
-
-            // selected.anchorNode.parentNode.insertBefore(li, selected.anchorNode.parentNode.nextSibling);
-
-            // selected.anchorNode.appendChild(<p>Hello</p>)
-            // window.getSelection().anchorNode.parentElement.appendChild()
-            // console.log("e", window.getSelection().anchorNode.parentElement.nodeName, window.getSelection(), "textfghj", text1)
-            // let range = selected.getRangeAt(0);
-            // range.deleteContents();
-            // range.insertNode(document.createTextNode("replacementText"));
-            // for gmail
-            // let eleId = `#${document.getSelection().anchorNode.parentElement.parentElement.id}`
-            // console.log(document.getSelection(), 'bj')
-            // document.getSelection().toString()  === "Hello Newton"
-            // document.querySelector('p').textContent = "hhh"
-            // document.getSelection().anchorNode.textContent === "hello newton"
-            // window.getSelection().anchorNode.parentElement.innerText === "jay guru maharaj ji"
-
-            // console.log(window.getSelection().anchorNode.parentElement.nodeName, text1, window.getSelection())
-            // let api_url = "https://7c62-1-23-55-130.ngrok.io/paraphraser/"
-            // let res = await fetch(api_url, {
-            //     method: "POST",
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({text: "Hi, alankar"})
-            // })
-            // let orRes = await res.json()
-            // console.log(res, orRes);
-            // let _data = {
-            //     text: "hi, newton"
-            //   }
-            // https://d737-113-193-79-29.ngrok.io/paraphraser/
-            //   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${good}`, {
-            //     method: "POST",
-            //     // mode: 'cors',
-            //     body: JSON.stringify({text: text1}),
-            //     headers: {"Content-type": "application/json; charset=UTF-8"}
-            //   })
-            //   .then(response => console.log(response)) 
-
-            //   .then(json => console.log(json));
-            //   .catch(err => console.log(err));
-
-
-            // let api_res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${text1}`);
-            // let res = await api_res.json()
-            // let definitions = res[0].meanings[0].definitions
-            // console.log("res", res, "api_res", "api_res", typeof(res), "definitions", definitions)
-
-            // var myHeaders = new Headers();
-            // myHeaders.append("Content-Type", "application/json");
-
-            // var raw = JSON.stringify({
-            //   "text": "Collections let you group related requests, making them easier to access and run."
-            // });
-
-            // var requestOptions = {
-            //   method: 'POST',
-            //   headers: myHeaders,
-            //   body: raw,
-            // //   mode: 'no-cors',
-            //   redirect: 'follow'
-            // };
-
-            // fetch("https://1e8c-1-23-111-49.ngrok.io/paraphraser/", requestOptions)
-            //   .then(response => response.text())
-            //   .then(result => console.log(result))
-            //   .catch(error => console.log('error'))
-            // .catch(error => console.log('error')
-
-            // let origRes = await res.text()
-            // console.log("origRes",  origRes)
-
-            // let res = await fetch("https://55b0-1-23-111-49.ngrok.io/", {
-            //     method:'GET',
-            //     mode: "no-cors",
-            //     headers: {"Content-type": "application/json; charset=UTF-8",
-            //             "Access-Control-Allow-Origin": "*",
-            //             "Access-Control-Allow-Headers": "*"
-            //     },
-            //     redirect: 'follow'
-            // })
-            // // let oriRes = await res.json()
-            // console.log(res, "it's res")
-
+            console.log("data", orRes, data)
+            isLoading = true
+            replaceFromSuggestedText(F1selected, text, isLoading, event, data)
 
         }
     }
@@ -235,13 +161,6 @@ const handleCLick = async (event) => {
 
 
 document.addEventListener('mouseup', handleCLick);
-
-// window.addEventListener('load', () => {
-//     let ele = document.body
-//     let pContainer = document.createElement('div');
-//     pContainer.setAttribute('class', "pcontainer")
-//     ele.appendChild(pContainer)
-// })
 
 const handleMouseDown = (event) => {
     console.log("2", event.target.id, event)
